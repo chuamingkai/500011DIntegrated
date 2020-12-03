@@ -40,5 +40,6 @@
     <string name="github_tutorial">help me</string>
 
     <string name="help">github tutorial</string>
+    <string name="success_post">Successfully posted!</string>
 
 </resources>
