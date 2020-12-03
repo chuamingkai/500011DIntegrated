@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.500011D">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".HomeActivity"
-            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".PostingActivity"
@@ -30,7 +29,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SignupActivity"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".LoginActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
