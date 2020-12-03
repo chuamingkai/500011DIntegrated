@@ -9,15 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.500011D">
-        <activity android:name=".PostingActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".HomeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".HomeActivity"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PostingActivity"
+            android:parentActivityName=".HomeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SignupActivity"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="preloaded_fonts"
