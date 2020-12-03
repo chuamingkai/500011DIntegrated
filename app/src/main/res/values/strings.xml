@@ -38,4 +38,6 @@
     <string name="error_empty_compulsory">Item and Description fields cannot be empty</string>
     <string name="file_not_found">File not found</string>
 
+    <string name="help">github tutorial</string>
+
 </resources>
