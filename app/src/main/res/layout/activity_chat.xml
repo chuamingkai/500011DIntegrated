@@ -106,7 +106,7 @@
         android:layout_width="57dp"
         android:layout_height="57dp"
         android:layout_gravity="center"
-        android:background="@drawable/refresh"
+        android:background="@drawable/refresh_update"
         android:text=""
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.Exclude;
 
 public class ItemEntry {
+    public static String imagePath;
     @Exclude public String databaseId;
     private String username;
     private Status status;
@@ -13,7 +14,7 @@ public class ItemEntry {
     private String item;
     private String location;
     private String description;
-    @Nullable private String imagePath;
+    //@Nullable private String imagePath;
 
     enum Status {
         FOUND,

@@ -92,8 +92,8 @@ public class PostingActivity extends AppCompatActivity {
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_IMAGE_GET);
                 }
-
             }
+
         });
 
         buttonPost.setOnClickListener(new View.OnClickListener() {
