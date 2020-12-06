@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 //this is for the lost page
@@ -19,13 +21,14 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
     //create new  variables to hold values that is going to pass in mainActivity
     ArrayList<ItemEntry> data;;
     Context context;
+    StorageReference storageRef;
 
 
     //constructors
-    public MainPageAdapter(Context ct, ArrayList<ItemEntry> data){
+    public MainPageAdapter(Context ct, StorageReference storageRef, ArrayList<ItemEntry> data){
         this.context = ct;
         this.data = data;
-
+        this.storageRef=storageRef;
     }
 
 
@@ -42,13 +45,15 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // how to change this
-        holder.text1.setText(data1[position]);
-        holder.text2.setText(data2[position]);
-        holder.text3.setText(data3[position]);
-        holder.text4.setText(data4[position]);
-        holder.myImage.setImageResource(imagePath[position]);
-
-
+        ItemEntry entry = data.get(position);
+        holder.ItemName.setText(entry.getItem());
+        holder.ItemTime.setText(entry.getDate_created());
+        holder.ItemVenue.setText(entry.getLocation());
+        holder.ItemDescription.setText(entry.getDescription());
+        if (entry.isImageExist()){
+            StorageReference imageRef = storageRef.child(entry.getImagePath());
+            FireBaseUtils.downloadToImageView(context, imageRef, holder.myImage);
+        }
     }
 
 
@@ -56,12 +61,10 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
     @Override
     //need to pass the  number of items we have
     //??? if not in array how to get
-    public int getItemCount() {
-        return lost_images.length;
-    }
+    public int getItemCount() { return data.size(); }
 
     public class MyViewHolder extends  RecyclerView.ViewHolder{
-        TextView  text1,text2,text3,text4;
+        TextView  ItemName,ItemTime,ItemVenue,ItemDescription;
         //do we need another one for found item?
         ImageView myImage;
         ConstraintLayout mainLayout;
@@ -69,11 +72,11 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
         //communicating with onBindViewHolder
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            text1=itemView.findViewById(R.id.ItemName);
-            text2=itemView.findViewById(R.id.ItemTime);
-            text3=itemView.findViewById(R.id.ItemVenue);
-            text4=itemView.findViewById(R.id.ItemDescription);
-            myImage= itemView.findViewById(R.id.LostImage);
+            ItemName=itemView.findViewById(R.id.ItemName);
+            ItemTime=itemView.findViewById(R.id.ItemTime);
+            ItemVenue=itemView.findViewById(R.id.ItemVenue);
+            ItemDescription=itemView.findViewById(R.id.ItemDescription);
+            myImage= itemView.findViewById(R.id.imageUploaded);
             mainLayout=itemView.findViewById(R.id.mainLayout);
 
         }

@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,7 +43,11 @@ public class HomeActivity extends AppCompatActivity {
 
     DatabaseReference mRootDatabaseRef;
     DatabaseReference mNodeRefItem;
+    RecyclerView recyclerView;
+    MainPageAdapter myAdapter;
     ArrayList<ItemEntry> data;
+
+    final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,8 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra(getString(R.string.username_intent));
 
-        // Here is code to get ItemEntry in ArrayList from Firebase database
+
+
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mNodeRefItem = mRootDatabaseRef.child(getString(R.string.item_node_key));
         mNodeRefItem.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -74,9 +83,16 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView = findViewById(R.id.recycleView);
+
+        // Here is code to get ItemEntry in ArrayList from Firebase database
+        myAdapter= new MainPageAdapter(HomeActivity.this, storageRef, data);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         chat = findViewById(R.id.ChatButton);
         post = findViewById(R.id.PostButton);
+        /*
         text = findViewById(R.id.ITEMLIST);
         text.setMovementMethod(new ScrollingMovementMethod());
         // Here update text with the values;
@@ -114,6 +130,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+        */
+
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override

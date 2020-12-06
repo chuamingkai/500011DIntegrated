@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.Exclude;
 
 public class ItemEntry {
-    public static String imagePath;
+
     @Exclude public String databaseId;
     private String username;
     private Status status;
@@ -14,7 +14,7 @@ public class ItemEntry {
     private String item;
     private String location;
     private String description;
-    //@Nullable private String imagePath;
+    @Nullable private String imagePath;
 
     enum Status {
         FOUND,
@@ -102,6 +102,8 @@ public class ItemEntry {
         this.location = location;
         this.description = description;
     }
+
+    public boolean isImageExist() { return this.imagePath != null; }
 
     // IDK if yall wanna use builder design pattern when creating new Entry instead so here it is
     static class ItemEntryBuilder {
