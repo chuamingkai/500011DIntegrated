@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class FireBaseUtils {
     final static long FIVE_MEGABYTE = 1024 * 1024 * 5;
@@ -100,7 +101,7 @@ public class FireBaseUtils {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             // NOTE: this method requires min SDK to be 26
             LocalDateTime t = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm").withLocale(Locale.US);
             return t.format(formatter);
         } else {
             /* NOTE: java.util.Date is apparently considered bad (I don't really understand and too
@@ -110,7 +111,7 @@ public class FireBaseUtils {
              SDK to 26 then we can remove this one and the if wrapper
              */
             String pattern = "dd MMMM yyyy HH:mm";
-            DateFormat df = new SimpleDateFormat(pattern);
+            DateFormat df = new SimpleDateFormat(pattern, Locale.US);
             Date today = Calendar.getInstance().getTime();
             String todayAsString = df.format(today);
             return todayAsString;

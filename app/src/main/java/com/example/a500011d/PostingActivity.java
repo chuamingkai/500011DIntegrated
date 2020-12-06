@@ -120,7 +120,9 @@ public class PostingActivity extends AppCompatActivity {
                     Log.d("d", itemEntry.getDescription());
                     Log.d("d", itemEntry.getDate_created());
                     mNodeRefItem.push().setValue(itemEntry);
-                    //TODO: proper intent
+                    Toast.makeText(PostingActivity.this, R.string.success_post, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(PostingActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 }
 
             }

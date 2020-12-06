@@ -62,8 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                                 DataSnapshot ds = snapshot.getChildren().iterator().next();
                                 User compareUser = ds.getValue(User.class);
                                 if (compareUser.validate(passwordInput)) {
-                                    // TODO: set correct intent
-                                    Intent intent = new Intent(LoginActivity.this, PostingActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     intent.putExtra(getString(R.string.username_intent), usernameInput);
                                     startActivity(intent);
                                 } else {
