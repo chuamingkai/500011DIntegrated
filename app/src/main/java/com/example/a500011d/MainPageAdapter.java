@@ -41,6 +41,7 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        // how to change this
         holder.text1.setText(data1[position]);
         holder.text2.setText(data2[position]);
         holder.text3.setText(data3[position]);
@@ -54,7 +55,7 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
 
     @Override
     //need to pass the  number of items we have
-    //???
+    //??? if not in array how to get
     public int getItemCount() {
         return lost_images.length;
     }
