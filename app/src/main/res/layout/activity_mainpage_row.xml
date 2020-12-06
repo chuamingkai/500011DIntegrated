@@ -61,7 +61,7 @@
                 android:text="@string/item_item"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageViewSelected"
+                app:layout_constraintStart_toEndOf="@+id/imageUploaded"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

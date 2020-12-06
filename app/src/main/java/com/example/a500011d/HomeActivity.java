@@ -56,8 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra(getString(R.string.username_intent));
 
-
-
+        recyclerView = findViewById(R.id.recycleView);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mNodeRefItem = mRootDatabaseRef.child(getString(R.string.item_node_key));
         mNodeRefItem.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -74,7 +73,9 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                 }
-
+                myAdapter = new MainPageAdapter(HomeActivity.this, storageRef, data);
+                recyclerView.setAdapter(myAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
             }
 
             @Override
@@ -82,13 +83,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        recyclerView = findViewById(R.id.recycleView);
-
-        // Here is code to get ItemEntry in ArrayList from Firebase database
-        myAdapter= new MainPageAdapter(HomeActivity.this, storageRef, data);
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         chat = findViewById(R.id.ChatButton);
         post = findViewById(R.id.PostButton);
