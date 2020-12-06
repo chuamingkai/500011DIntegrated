@@ -4,7 +4,7 @@
     <string name="signup">Don\'t have an account yet? Sign up</string>
 
     <string name="sign_up_message">Sign up to join our Lost and Found community!</string>
-    <string name="login_message">Back to Log In</string>
+    <string name="login_message">Already have an account? Log In</string>
 
     <!-- START: ItemEntry keys in database -->
     <string name="item_node_key" translatable="false">items</string>
@@ -41,5 +41,9 @@
 
     <string name="help">github tutorial</string>
     <string name="success_post">Successfully posted!</string>
+    <string name="home">Home</string>
+    <string name="welcome_message">Welcome to Lost &amp; Found!</string>
+    <string name="post">Post</string>
+    <string name="profile">My Profile</string>
 
 </resources>

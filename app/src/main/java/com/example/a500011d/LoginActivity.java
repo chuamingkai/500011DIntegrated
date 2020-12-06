@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                                 DataSnapshot ds = snapshot.getChildren().iterator().next();
                                 User compareUser = ds.getValue(User.class);
                                 if (compareUser.validate(passwordInput)) {
-                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                                     intent.putExtra(getString(R.string.username_intent), usernameInput);
                                     startActivity(intent);
                                 } else {
