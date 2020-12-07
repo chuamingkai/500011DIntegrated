@@ -1,7 +1,5 @@
 package com.example.a500011d;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -18,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,15 +45,12 @@ public class PostingActivity extends AppCompatActivity {
 
     final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     final static int REQUEST_IMAGE_GET = 2000;
-    final static String KEY_PATH = "Image";
-    final static String KEY_NAME = "Name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
-        Intent intent = getIntent();
-        username = intent.getStringExtra(getString(R.string.username_intent));
+        username = SharedPrefs.getUsernamePref(PostingActivity.this);
 
         Spinner spin = findViewById(R.id.spinnerStatus);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, status);

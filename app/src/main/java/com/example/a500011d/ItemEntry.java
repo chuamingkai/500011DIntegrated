@@ -103,7 +103,7 @@ public class ItemEntry {
         this.description = description;
     }
 
-    public boolean isImageExist() { return this.imagePath != null; }
+    @Exclude public boolean isImageExist() { return this.imagePath != null; }
 
     // IDK if yall wanna use builder design pattern when creating new Entry instead so here it is
     static class ItemEntryBuilder {
