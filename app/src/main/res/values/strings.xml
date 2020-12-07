@@ -34,13 +34,10 @@
 
     <!-- START: Posting Activity -->
     <string name="posting_title">Posting Page</string>
-    <string name="username_intent" translatable="false">username</string>
     <string name="error_empty_compulsory">Item and Description fields cannot be empty</string>
     <string name="file_not_found">File not found</string>
-    <string name="github_tutorial">help me</string>
-
-    <string name="help">github tutorial</string>
     <string name="success_post">Successfully posted!</string>
+
     <string name="home">Home</string>
     <string name="welcome_message">Welcome to Lost &amp; Found!</string>
     <string name="post">Post</string>
