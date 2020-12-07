@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/tiffany_blue"
-    android:id="@+id/mainLayout">
+    android:id="@+id/HomeLayout">
 
 
 
@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="20dp"
         android:elevation="20dp"
-        android:layout_margin="8dp"
+        android:layout_margin="6dp"
         >
 
 
@@ -28,8 +28,8 @@
 
             <ImageView
                 android:id="@+id/imageUploaded"
-                android:layout_width="200sp"
-                android:layout_height="200sp"
+                android:layout_width="188dp"
+                android:layout_height="202dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="5dp"
@@ -40,13 +40,18 @@
                 app:srcCompat="@drawable/box" />
 
 
-            <ImageButton
-                android:layout_width="71dp"
-                android:layout_height="69dp"
+            <Button
+                android:id="@+id/ChatHomeButton"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:background="@drawable/message"
+                android:text=""
+                android:textColor="@color/light_cyan"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/chat_update3"
+                android:src="@drawable/message"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -95,6 +100,15 @@
                 app:layout_constraintStart_toStartOf="@+id/ItemVenue"
                 app:layout_constraintTop_toBottomOf="@+id/ItemVenue" />
 
+            <TextView
+                android:id="@+id/ItemStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginTop="48dp"
+                android:text="@string/item_status"
+                app:layout_constraintStart_toStartOf="@+id/ItemDescription"
+                app:layout_constraintTop_toBottomOf="@+id/ItemDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

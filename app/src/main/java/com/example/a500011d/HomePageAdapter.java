@@ -16,7 +16,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 //this is for the lost page
-public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyViewHolder> {
+public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomeViewHolder> {
     //add context
     //create new  variables to hold values that is going to pass in mainActivity
     ArrayList<ItemEntry> data;;
@@ -25,7 +25,7 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
 
 
     //constructors
-    public MainPageAdapter(Context ct, StorageReference storageRef, ArrayList<ItemEntry> data){
+    public HomePageAdapter(Context ct, StorageReference storageRef, ArrayList<ItemEntry> data){
         this.context = ct;
         this.data = data;
         this.storageRef=storageRef;
@@ -35,21 +35,21 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(context);
-        View view =inflater.inflate(R.layout.activity_mainpage_row,parent,false);
-        return new MyViewHolder(view);
+        View homeView =inflater.inflate(R.layout.activity_home_row,parent,false);
+        return new HomeViewHolder(homeView);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        // how to change this
+    public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         ItemEntry entry = data.get(position);
         holder.ItemName.setText(entry.getItem());
         holder.ItemTime.setText(entry.getDate_created());
         holder.ItemVenue.setText(entry.getLocation());
         holder.ItemDescription.setText(entry.getDescription());
+        holder.ItemStatus.setText(entry.getStatus().toString());
         if (entry.isImageExist()){
             StorageReference imageRef = storageRef.child(entry.getImagePath());
             FireBaseUtils.downloadToImageView(context, imageRef, holder.myImage);
@@ -63,21 +63,22 @@ public class MainPageAdapter extends RecyclerView.Adapter<MainPageAdapter.MyView
     //??? if not in array how to get
     public int getItemCount() { return data.size(); }
 
-    public class MyViewHolder extends  RecyclerView.ViewHolder{
-        TextView  ItemName,ItemTime,ItemVenue,ItemDescription;
+    public class HomeViewHolder extends  RecyclerView.ViewHolder{
+        TextView  ItemName,ItemTime,ItemVenue,ItemDescription,ItemStatus;
         //do we need another one for found item?
         ImageView myImage;
-        ConstraintLayout mainLayout;
+        ConstraintLayout HomeLayout;
 
         //communicating with onBindViewHolder
-        public MyViewHolder(@NonNull View itemView) {
+        public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
             ItemName=itemView.findViewById(R.id.ItemName);
             ItemTime=itemView.findViewById(R.id.ItemTime);
             ItemVenue=itemView.findViewById(R.id.ItemVenue);
             ItemDescription=itemView.findViewById(R.id.ItemDescription);
+            ItemStatus=itemView.findViewById(R.id.ItemStatus);
             myImage= itemView.findViewById(R.id.imageUploaded);
-            mainLayout=itemView.findViewById(R.id.mainLayout);
+            HomeLayout =itemView.findViewById(R.id.HomeLayout);
 
         }
     }

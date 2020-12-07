@@ -25,20 +25,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-public class HomeActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
-    Button chatHome;
-    Button post;
+
     TextView text;
     String username;
+    Button chatProfile;
+    Button changeStatus;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference docRef = db.collection("Items").document("LostItem");
     public Map<String,Object> doc;
 
     DatabaseReference mRootDatabaseRef;
     DatabaseReference mNodeRefItem;
-    RecyclerView HomeRecycleView;
-    HomePageAdapter homeAdapter;
+    RecyclerView ProfileRecyclerView;
+    ProfilePageAdapter profileAdapter;
     ArrayList<ItemEntry> data;
 
     final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -46,13 +47,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_profile);
         Intent intent = getIntent();
         username = intent.getStringExtra(getString(R.string.username_intent));
-
-        HomeRecycleView = findViewById(R.id.HomeRecycleView);
+        ProfileRecyclerView = findViewById(R.id.ProfileRecycleView);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mNodeRefItem = mRootDatabaseRef.child(getString(R.string.item_node_key));
+        mNodeRefItem.orderByChild(getString(R.string.item_username)).equalTo(username).addListenerForSingleValueEvent;
         mNodeRefItem.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,9 +67,10 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                 }
-                homeAdapter = new HomePageAdapter(HomeActivity.this, storageRef, data);
-                HomeRecycleView.setAdapter(homeAdapter);
-                HomeRecycleView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+
+                profileAdapter = new ProfilePageAdapter(ProfileActivity.this, storageRef, data);
+                ProfileRecyclerView.setAdapter(profileAdapter);
+                ProfileRecyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
             }
 
             @Override
@@ -78,31 +79,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        chatHome= findViewById(R.id.ChatHomeButton);
-        //post = findViewById(R.id.PostButton);
-
-        chatHome.setOnClickListener(new View.OnClickListener() {
+        chatProfile= findViewById(R.id.ChatProfileButton);
+        changeStatus=findViewById(R.id.ItemStatus);
+        chatProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,
+                Intent intent = new Intent(ProfileActivity.this,
                         ChatActivity.class);
                 startActivity(intent);
             }
         });
 
-        /*
-
-        post.setOnClickListener(new View.OnClickListener() {
+        changeStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,
-                        PostingActivity.class);
-                intent.putExtra(getString(R.string.username_intent), username);
+                //change status, what to put in intend?
+                Intent intent = new Intent(ProfileActivity.this,
+                        ChatActivity.class);
                 startActivity(intent);
             }
-        }); */
-
-
+        });
         /*
         text = findViewById(R.id.ITEMLIST);
         text.setMovementMethod(new ScrollingMovementMethod());
