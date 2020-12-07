@@ -2,41 +2,33 @@ package com.example.a500011d;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
     Button chat;
     Button post;
     TextView text;
-    String username;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference docRef = db.collection("Items").document("LostItem");
     public Map<String,Object> doc;
@@ -53,8 +45,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Intent intent = getIntent();
-        username = intent.getStringExtra(getString(R.string.username_intent));
 
         recyclerView = findViewById(R.id.recycleView);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -141,7 +131,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this,
                         PostingActivity.class);
-                intent.putExtra(getString(R.string.username_intent), username);
                 startActivity(intent);
             }
         });
