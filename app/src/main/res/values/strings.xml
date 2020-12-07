@@ -39,6 +39,7 @@
     <string name="success_post">Successfully posted!</string>
 
     <string name="home">Home</string>
+    <string name="loading">Loading</string>
     <string name="welcome_message">Welcome to Lost &amp; Found!</string>
     <string name="post">Post</string>
     <string name="profile">My Profile</string>

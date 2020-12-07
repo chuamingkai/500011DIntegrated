@@ -38,7 +38,7 @@ public class FireBaseUtils {
             @Override
             public void onSuccess(byte[] bytes) {
                 // Data for image reference is returns, use this as needed
-                Toast.makeText(context, "Download successful", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Download successful", Toast.LENGTH_SHORT).show();
                 ByteArrayInputStream is = new ByteArrayInputStream(bytes);
                 Drawable drw = Drawable.createFromStream(is, "articleImage");
                 imageView.setImageDrawable(drw);
@@ -48,7 +48,7 @@ public class FireBaseUtils {
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
                 Log.d("ERROR", exception.toString());
-                Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

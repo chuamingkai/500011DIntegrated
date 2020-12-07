@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,13 +23,15 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomeVi
     ArrayList<ItemEntry> data;;
     Context context;
     StorageReference storageRef;
+    HomeAdapterListener clickListener;
 
 
     //constructors
-    public HomePageAdapter(Context ct, StorageReference storageRef, ArrayList<ItemEntry> data){
+    public HomePageAdapter(Context ct, StorageReference storageRef, ArrayList<ItemEntry> data, HomeAdapterListener listener){
         this.context = ct;
         this.data = data;
-        this.storageRef=storageRef;
+        this.storageRef = storageRef;
+        this.clickListener = listener;
     }
 
 
@@ -37,7 +40,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomeVi
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(context);
-        View homeView =inflater.inflate(R.layout.activity_home_row,parent,false);
+        View homeView =inflater.inflate(R.layout.activity_home_row, parent,false);
         return new HomeViewHolder(homeView);
 
     }
@@ -45,41 +48,45 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.HomeVi
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         ItemEntry entry = data.get(position);
-        holder.ItemName.setText(entry.getItem());
-        holder.ItemTime.setText(entry.getDate_created());
-        holder.ItemVenue.setText(entry.getLocation());
-        holder.ItemDescription.setText(entry.getDescription());
-        holder.ItemStatus.setText(entry.getStatus().toString());
+        holder.itemName.setText(entry.getItem());
+        holder.itemTime.setText(entry.getDate_created());
+        holder.itemVenue.setText(entry.getLocation());
+        holder.itemDescription.setText(entry.getDescription());
+        holder.itemStatus.setText(entry.getStatus().toString());
         if (entry.isImageExist()){
             StorageReference imageRef = storageRef.child(entry.getImagePath());
             FireBaseUtils.downloadToImageView(context, imageRef, holder.myImage);
         }
     }
 
-
+    public interface HomeAdapterListener {
+        void navigateToChatOnClick(View v);
+    }
 
     @Override
-    //need to pass the  number of items we have
-    //??? if not in array how to get
     public int getItemCount() { return data.size(); }
 
     public class HomeViewHolder extends  RecyclerView.ViewHolder{
-        TextView  ItemName,ItemTime,ItemVenue,ItemDescription,ItemStatus;
-        //do we need another one for found item?
+        TextView itemName, itemTime, itemVenue, itemDescription, itemStatus;
         ImageView myImage;
-        ConstraintLayout HomeLayout;
+        Button buttonChat;
 
         //communicating with onBindViewHolder
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
-            ItemName=itemView.findViewById(R.id.ItemName);
-            ItemTime=itemView.findViewById(R.id.ItemTime);
-            ItemVenue=itemView.findViewById(R.id.ItemVenue);
-            ItemDescription=itemView.findViewById(R.id.ItemDescription);
-            ItemStatus=itemView.findViewById(R.id.ItemStatus);
-            myImage= itemView.findViewById(R.id.imageUploaded);
-            HomeLayout =itemView.findViewById(R.id.HomeLayout);
-
+            itemName = itemView.findViewById(R.id.ItemName);
+            itemTime = itemView.findViewById(R.id.ItemTime);
+            itemVenue = itemView.findViewById(R.id.ItemVenue);
+            itemDescription = itemView.findViewById(R.id.ItemDescription);
+            itemStatus = itemView.findViewById(R.id.ItemStatus);
+            myImage = itemView.findViewById(R.id.imageUploaded);
+            buttonChat = itemView.findViewById(R.id.ChatHomeButton);
+            buttonChat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.navigateToChatOnClick(view);
+                }
+            });
         }
     }
 }

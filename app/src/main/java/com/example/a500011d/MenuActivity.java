@@ -33,9 +33,8 @@ public class MenuActivity extends AppCompatActivity {
 
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            //change to profile activity later
             public void onClick(View view1) {
-                Intent intent = new Intent(MenuActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
                 startActivity(intent);
 
             }

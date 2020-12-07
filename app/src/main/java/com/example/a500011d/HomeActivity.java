@@ -2,6 +2,7 @@ package com.example.a500011d;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
     Button chatHome;
     Button post;
     TextView text;
-    String username;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference docRef = db.collection("Items").document("LostItem");
     public Map<String,Object> doc;
@@ -47,8 +47,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Intent intent = getIntent();
-        username = intent.getStringExtra(getString(R.string.username_intent));
 
         HomeRecycleView = findViewById(R.id.HomeRecycleView);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -62,12 +60,19 @@ public class HomeActivity extends AppCompatActivity {
                     for (Iterator<DataSnapshot> item = snapshot.getChildren().iterator(); item.hasNext(); ) {
                         DataSnapshot ds = item.next();
                         ItemEntry entry = ds.getValue(ItemEntry.class);
+                        if (entry.getStatus() == ItemEntry.Status.RESOLVED) continue;
                         entry.databaseId = ds.getKey();
                         data.add(entry);
                     }
 
                 }
-                homeAdapter = new HomePageAdapter(HomeActivity.this, storageRef, data);
+                homeAdapter = new HomePageAdapter(HomeActivity.this, storageRef, data, new HomePageAdapter.HomeAdapterListener() {
+                    @Override
+                    public void navigateToChatOnClick(View v) {
+                        Intent intent = new Intent(HomeActivity.this, ChatActivity.class);
+                        startActivity(intent);
+                    }
+                });
                 HomeRecycleView.setAdapter(homeAdapter);
                 HomeRecycleView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
             }
@@ -77,10 +82,9 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        chatHome= findViewById(R.id.ChatHomeButton);
+        /*
+        chatHome = findViewById(R.id.ChatHomeButton);
         //post = findViewById(R.id.PostButton);
-
         chatHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,62 +92,7 @@ public class HomeActivity extends AppCompatActivity {
                         ChatActivity.class);
                 startActivity(intent);
             }
-        });
-
-        /*
-
-        post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,
-                        PostingActivity.class);
-                intent.putExtra(getString(R.string.username_intent), username);
-                startActivity(intent);
-            }
-        }); */
-
-
-        /*
-        text = findViewById(R.id.ITEMLIST);
-        text.setMovementMethod(new ScrollingMovementMethod());
-        // Here update text with the values;
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                                StringBuilder itemInfo = new StringBuilder();
-                                List<Map<String,String>> items = new ArrayList<Map<String,String>>();
-                                doc = documentSnapshot.getData();
-                                for(String itemName : doc.keySet()){
-                                    items.add((Map<String, String>) doc.get(itemName));
-
-                                }
-                                for(Map<String,String> item : items){
-                                        itemInfo.append("item : ").append(item.get("item")).append("\n")
-                                                .append("date : ").append(item.get("date")).append("\n")
-                                                .append("information : ").append(item.get("information")).append("\n").append("\n");
-                                }
-                                text.setText(itemInfo);
-                        }else{
-                            Toast.makeText(HomeActivity.this,"No items updated!",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(HomeActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG",e.toString());
-                    }
-                });
-
-            }
-        });
-        */
-
-
+        });*/
 
     }
 }

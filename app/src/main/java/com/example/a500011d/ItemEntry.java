@@ -105,7 +105,6 @@ public class ItemEntry {
 
     @Exclude public boolean isImageExist() { return this.imagePath != null; }
 
-    // IDK if yall wanna use builder design pattern when creating new Entry instead so here it is
     static class ItemEntryBuilder {
         private String databaseId;
         private String username;
