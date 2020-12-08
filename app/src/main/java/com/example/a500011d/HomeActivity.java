@@ -2,7 +2,6 @@ package com.example.a500011d;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
 
     DatabaseReference mRootDatabaseRef;
     DatabaseReference mNodeRefItem;
-    RecyclerView HomeRecycleView;
+    RecyclerView homeRecycleView;
     HomePageAdapter homeAdapter;
     ArrayList<ItemEntry> data;
 
@@ -48,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        HomeRecycleView = findViewById(R.id.HomeRecycleView);
+        homeRecycleView = findViewById(R.id.HomeRecycleView);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mNodeRefItem = mRootDatabaseRef.child(getString(R.string.item_node_key));
         mNodeRefItem.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -73,8 +72,8 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                HomeRecycleView.setAdapter(homeAdapter);
-                HomeRecycleView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+                homeRecycleView.setAdapter(homeAdapter);
+                homeRecycleView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
             }
 
             @Override

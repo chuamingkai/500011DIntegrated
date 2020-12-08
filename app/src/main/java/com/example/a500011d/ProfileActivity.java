@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     DatabaseReference mRootDatabaseRef;
     DatabaseReference mNodeRefItem;
-    RecyclerView ProfileRecyclerView;
+    RecyclerView profileRecyclerView;
     ProfilePageAdapter profileAdapter;
     ArrayList<ItemEntry> data;
 
@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         username = SharedPrefs.getUsernamePref(ProfileActivity.this);
 
-        ProfileRecyclerView = findViewById(R.id.ProfileRecycleView);
+        profileRecyclerView = findViewById(R.id.ProfileRecycleView);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mNodeRefItem = mRootDatabaseRef.child(getString(R.string.item_node_key));
         mNodeRefItem.orderByChild(getString(R.string.item_username)).equalTo(username).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,6 +67,8 @@ public class ProfileActivity extends AppCompatActivity {
                         entry.resolve();
                         mNodeRefItem.child(entry.databaseId).setValue(entry);
                         Toast.makeText(ProfileActivity.this, "Resolved", Toast.LENGTH_LONG).show();
+                        data.remove(position);
+                        profileAdapter.notifyItemRemoved(position);
                     }
 
                     @Override
@@ -75,8 +77,8 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                ProfileRecyclerView.setAdapter(profileAdapter);
-                ProfileRecyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
+                profileRecyclerView.setAdapter(profileAdapter);
+                profileRecyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
             }
 
             @Override
